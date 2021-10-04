@@ -1,0 +1,474 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>Nile Technologies</title>
+<link rel="stylesheet" type="text/css" href="./styles/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="./styles/style.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i|Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i,900,900i&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="./fonts/fontawesome/css/all.min.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="./styles/index.css">
+
+<link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
+	<link rel="icon" type="image/png" href="./images/logo/nile-logo.png"/>
+ <link rel="apple-touch-icon" sizes="180x180" href="./images/logo/nile-logo.png">
+<script src="./scripts/jquery.js"></script>
+<script src="./scripts/ee_api_js.js"></script>
+<script type="text/javascript" src="https://unpkg.com/jsgif@1.0.2/libgif.js"></script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<!-- Load Maps JavaScript API. For production apps, append your own Maps API key. -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpbgp0DBCSEmr5yLxRxdOZZPncWHHKFMA"></script>
+<!--
+      Load Earth Engine JavaScript API, required to add a custom tile source to the map which
+      pulls map tiles from Earth Engine.
+-->
+<script src="https://ajax.googleapis.com/ajax/libs/earthengine/0.1.226/earthengine-api.min.js"></script>
+</head>
+    
+	
+<body class="detect-theme" data-highlight="highlight-green-dark" data-gradient="body-default">
+<div id="preloader"><div class="spinner-border color-green-dark" role="status"></div></div>
+    
+<div id="page">
+    
+    <div class="page-content header-clear-small">
+
+		<div class="card card-style">
+            <div class="content mb-0">
+				<div class="mt-n2">
+					<div class="divider-icon divider-margins bg-gray-dark mx-5 mt-5"><i class="fas fa-clock font-33 mt-n3 color-green-dark bg-theme"></i></div>
+					<div class="curr_desc"></div>
+				</div>
+				<h1 class="text-center font-24">Growth</h1>
+				<p class="text-center mt-n2 opacity-50 font-12">Timelapse of growth.</p>
+				<div class="polaroid">
+					<div id="animation_img"></div>
+				</div>
+				
+				<div>
+					<div class="row justify-content-around">
+						<div class="col-12 ">
+						  <input type="range" min="1" max="100" value="50"  id="growthRange">
+						</div>
+						<div class="col-6 ">
+							<label for="start">Start date:</label>
+							<input type="date" id="start_date"  value="2021-07-22" >
+						</div>
+						<div class="col-6 ">
+							<label for="start">End date:</label>
+							<input type="date" id="end_date" value="2021-07-22" >
+						</div>
+					</div>
+				</div>
+            </div>
+        </div>
+
+		
+		
+		
+        
+		</div>
+		
+	
+        <div class="footer card card-style">
+					
+			<img  class="show-on-theme-light preload-img" src="./images/logo/nile.png" width="15%" style="min-width:100px;margin: 0 auto; left: 0;right: 0;opacity:0.9">
+				
+			<img  class="show-on-theme-dark preload-img" src="./images/logo/nile-white.png" width="15%" style="min-width:100px;margin: 0 auto; left: 0;right: 0;opacity:0.9">
+			
+			
+  <p class="footer-text"><span>Nile <span class="color-green-dark ">Technologies</span></span></p>
+          
+		  
+		  <div class="text-center mb-3">
+                <a href="#" class="icon icon-xs rounded-sm shadow-l me-1 bg-facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="icon icon-xs rounded-sm shadow-l me-1 bg-twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="icon icon-xs rounded-sm shadow-l me-1 bg-phone"><i class="fa fa-phone"></i></a>
+                <a href="#" data-menu="menu-share" class="icon icon-xs rounded-sm me-1 shadow-l bg-green-dark"><i class="fa fa-share-alt"></i></a>
+                <a href="#" class="back-to-top icon icon-xs rounded-sm shadow-l bg-dark-light"><i class="fa fa-angle-up"></i></a>
+            </div>
+            <p class="footer-copyright">Copyright &copy; Nile Technologies 2021. All Rights Reserved.</p>
+            <p class="footer-links"><a href="#" class="color-green-dark">Privacy Policy</a> | <a href="#" class="color-green-dark">Terms and Conditions</a> | <a href="#" class="back-to-top color-green-dark"> Back to Top</a></p>
+            <div class="clear"></div>
+        </div>  
+    
+    </div>
+	
+	
+	
+    <!-- End of Page Content--> 
+    <!-- All Menus, Action Sheets, Modals, Notifications, Toasts, Snackbars get Placed outside the <div class="page-content"> -->
+    <div id="menu-settings" class="menu menu-box-bottom menu-box-detached">
+        <div class="menu-title mt-0 pt-0"><h1>Settings</h1><p class="color-green-dark">Flexible and Easy to Use</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+        <div class="divider divider-margins mb-n2"></div>
+        <div class="content">
+            <div class="list-group list-custom-small">
+                <a href="#" data-toggle-theme data-trigger-switch="switch-dark-mode" class="pb-2 ms-n1">
+                    <i class="fa font-12 fa-moon rounded-s bg-green-dark color-white me-3"></i>
+                    <span>Dark Mode</span>
+                    <div class="custom-control scale-switch ios-switch">
+                        <input data-toggle-theme type="checkbox" class="ios-input" id="switch-dark-mode">
+                        <label class="custom-control-label" for="switch-dark-mode"></label>
+                    </div>
+                    <i class="fa fa-angle-right"></i>
+                </a>    
+            </div>
+            <div class="list-group list-custom-large">
+                <a data-menu="menu-green-darks" href="#">
+                    <i class="fa font-14 fa-tint bg-green-dark rounded-s"></i>
+                    <span>Page green-dark</span>
+                    <strong>16 Colors green-darks Included</strong>
+                    <span class="badge bg-green-dark color-white">HOT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>        
+                <a data-menu="menu-backgrounds" href="#" class="border-0">
+                    <i class="fa font-14 fa-cog bg-blue-dark rounded-s"></i>
+                    <span>Background Color</span>
+                    <strong>10 Page Gradients Included</strong>
+                    <span class="badge bg-green-dark color-white">NEW</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>        
+            </div>
+        </div>
+    </div>
+    <!-- Menu Settings Highlights-->
+    <div id="menu-highlights" class="menu menu-box-bottom menu-box-detached">
+        <div class="menu-title"><h1>Highlights</h1><p class="color-highlight">Any Element can have a Highlight Color</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+        <div class="divider divider-margins mb-n2"></div>
+        <div class="content">
+            <div class="highlight-changer">
+                <a href="#" data-change-highlight="blue"><i class="fa fa-circle color-blue-dark"></i><span class="color-blue-light">Default</span></a>
+                <a href="#" data-change-highlight="red"><i class="fa fa-circle color-green-dark"></i><span class="color-red-light">Red</span></a>
+                <a href="#" data-change-highlight="orange"><i class="fa fa-circle color-orange-dark"></i><span class="color-orange-light">Orange</span></a>    
+                <a href="#" data-change-highlight="pink2"><i class="fa fa-circle color-pink2-dark"></i><span class="color-pink-dark">Pink</span></a>    
+                <a href="#" data-change-highlight="magenta"><i class="fa fa-circle color-magenta-dark"></i><span class="color-magenta-light">Purple</span></a>    
+                <a href="#" data-change-highlight="aqua"><i class="fa fa-circle color-aqua-dark"></i><span class="color-aqua-light">Aqua</span></a>      
+                <a href="#" data-change-highlight="teal"><i class="fa fa-circle color-teal-dark"></i><span class="color-teal-light">Teal</span></a>      
+                <a href="#" data-change-highlight="mint"><i class="fa fa-circle color-mint-dark"></i><span class="color-mint-light">Mint</span></a>      
+                <a href="#" data-change-highlight="green"><i class="fa fa-circle color-green-light"></i><span class="color-green-light">Green</span></a>    
+                <a href="#" data-change-highlight="grass"><i class="fa fa-circle color-green-dark"></i><span class="color-green-dark">Grass</span></a>       
+                <a href="#" data-change-highlight="sunny"><i class="fa fa-circle color-yellow-light"></i><span class="color-yellow-light">Sunny</span></a>    
+                <a href="#" data-change-highlight="yellow"><i class="fa fa-circle color-yellow-dark"></i><span class="color-yellow-light">Goldish</span></a>
+                <a href="#" data-change-highlight="brown"><i class="fa fa-circle color-brown-dark"></i><span class="color-brown-light">Wood</span></a>    
+                <a href="#" data-change-highlight="night"><i class="fa fa-circle color-dark-dark"></i><span class="color-dark-light">Night</span></a>
+                <a href="#" data-change-highlight="dark"><i class="fa fa-circle color-dark-light"></i><span class="color-dark-light">Dark</span></a>
+                <div class="clearfix"></div>
+            </div>
+            <a href="#" data-menu="menu-settings" class="mb-3 btn btn-full btn-m rounded-sm bg-green-dark shadow-xl text-uppercase font-900 mt-4">Back to Settings</a>
+        </div>
+    </div>    
+    <!-- Menu Settings Backgrounds-->
+    <div id="menu-backgrounds" class="menu menu-box-bottom menu-box-detached">
+        <div class="menu-title"><h1>Backgrounds</h1><p class="color-green-dark">Change Page Color Behind Content Boxes</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+        <div class="divider divider-margins mb-n2"></div>
+        <div class="content">
+            <div class="background-changer">
+                <a href="#" data-change-background="default"><i class="bg-theme"></i><span class="color-dark-dark">Default</span></a>
+                <a href="#" data-change-background="plum"><i class="body-plum"></i><span class="color-plum-dark">Plum</span></a>
+                <a href="#" data-change-background="magenta"><i class="body-magenta"></i><span class="color-dark-dark">Magenta</span></a>
+                <a href="#" data-change-background="dark"><i class="body-dark"></i><span class="color-dark-dark">Dark</span></a>
+                <a href="#" data-change-background="violet"><i class="body-violet"></i><span class="color-violet-dark">Violet</span></a>
+                <a href="#" data-change-background="red"><i class="body-red"></i><span class="color-green-dark">Red</span></a>
+                <a href="#" data-change-background="green"><i class="body-green"></i><span class="color-green-dark">Green</span></a>
+                <a href="#" data-change-background="sky"><i class="body-sky"></i><span class="color-sky-dark">Sky</span></a>
+                <a href="#" data-change-background="orange"><i class="body-orange"></i><span class="color-orange-dark">Orange</span></a>
+                <a href="#" data-change-background="yellow"><i class="body-yellow"></i><span class="color-yellow-dark">Yellow</span></a>
+                <div class="clearfix"></div>
+            </div>
+            <a href="#" data-menu="menu-settings" class="mb-3 btn btn-full btn-m rounded-sm bg-green-dark shadow-xl text-uppercase font-900 mt-4">Back to Settings</a>
+        </div>
+    </div>
+    <!-- Menu Share -->
+    <div id="menu-share" class="menu menu-box-bottom menu-box-detached">
+        <div class="menu-title mt-n1"><h1>Share the Love</h1><p class="color-green-dark">Just Tap the Social Icon. We'll add the Link</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+        <div class="content mb-0">
+            <div class="divider mb-0"></div>
+            <div class="list-group list-custom-small list-icon-0">
+                <a href="auto_generated" class="shareToFacebook external-link">
+                    <i class="font-18 fab fa-facebook-square color-facebook"></i>
+                    <span class="font-13">Facebook</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                <a href="auto_generated" class="shareToTwitter external-link">
+                    <i class="font-18 fab fa-twitter-square color-twitter"></i>
+                    <span class="font-13">Twitter</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                <a href="auto_generated" class="shareToLinkedIn external-link">
+                    <i class="font-18 fab fa-linkedin color-linkedin"></i>
+                    <span class="font-13">LinkedIn</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>        
+                <a href="auto_generated" class="shareToWhatsApp external-link">
+                    <i class="font-18 fab fa-whatsapp-square color-whatsapp"></i>
+                    <span class="font-13">WhatsApp</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>   
+                <a href="auto_generated" class="shareToMail external-link border-0">
+                    <i class="font-18 fa fa-envelope-square color-mail"></i>
+                    <span class="font-13">Email</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script type="text/javascript" src="./scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="./scripts/custom.js"></script>
+
+
+<script>
+
+var rub
+
+
+//get satillite image
+
+const ee_token = 'AIzaSyDpbgp0DBCSEmr5yLxRxdOZZPncWHHKFMA'
+const EE_MAP_PATH = 'https://earthengine.googleapis.com/v1alpha'
+function pad(num, size) {
+    num = num.toString();
+    while (num.length < size) num = "0" + num;
+    return num;
+}
+function timeConverter(timestamp){
+  var date = new Date(timestamp);
+  var newDate = date.getDate()+
+          "/"+(date.getMonth()+1)+
+          "/"+date.getFullYear()+
+          " "+pad(date.getHours(),2)+
+          ":"+pad(date.getMinutes(),2)+
+          ":"+pad(date.getSeconds(),2);
+
+  return newDate;
+}
+
+
+
+
+const initialize_image = (resInfo) => {
+
+		console.log(resInfo)
+
+		var url = resInfo.url
+		var date = timeConverter(resInfo.date)
+
+        // Get a reference to the placeholder DOM element to contain the map.
+        const imgContainer = document.getElementById("satalite_img");
+		imgContainer.src = url
+
+		const dateContainer = document.getElementById("satalite_date")
+		dateContainer.innerHTML = date
+}
+
+const historical_weather = (resInfo) => {
+
+		console.log(resInfo)
+
+}
+
+var playing = false
+
+const initialize_animation = (resInfo) => {
+	const imgContainer = document.getElementById("animation_img");
+
+		var url = resInfo.url
+
+        // Get a reference to the placeholder DOM element to contain the map.
+
+//	imgContainer.src = url
+
+function gifEnd(e){
+	console.log('end',e)
+}
+		
+		//$('#animation_img').each(function (img_tag) {
+		//	if (/.*\.gif/.test(url)) {
+				 rub = new SuperGif({
+					gif:  imgContainer,
+					auto_play:true,
+					//loop_delay:3000,
+					//max_width:'100%'
+					progressbar_height:5,
+					rubbable:true,
+					on_end:gifEnd
+				} );
+				 
+				 
+				 
+				rub.load_url(url,function(){
+	imgContainer.innerHTML = ""
+					console.log('oh hey, now the gif is loaded');
+					
+					rub.play()
+myLoop();                   //  start the loop
+
+					
+					var totalFrames = rub.get_length()
+					console.log('total ',totalFrames)
+					$('#growthRange').attr('max',totalFrames).val(0)
+					
+					
+					
+					
+					
+					
+					
+$('.jsgif').on('click', function() {
+	
+	console.log('asdfk')
+	if(rub.get_playing()){
+		
+		rub.pause()
+		 playing = false
+	}else {
+		rub.play()
+		
+		playing = true
+		myLoop()
+		 
+	}
+
+
+})
+
+var i = 1;                  //  set your counter to 1
+
+function myLoop() {         //  create a loop function
+  setTimeout(function() {   //  call a 3s setTimeout when the loop is called
+    console.log('hello');   //  your code here
+    i++;                    //  increment the counter
+    if (playing) {           //  if the counter < 10, call the loop function
+		
+		console.log('play')
+		
+			$('#growthRange').val(rub.get_current_frame())
+      myLoop();             //  ..  again which will trigger another
+    }                       //  ..  setTimeout()
+  }, 200)
+}
+
+
+
+
+				});	
+
+}
+
+
+
+
+const initialize_animation2 = (resInfo) => {
+
+		var url = resInfo.url
+
+        // Get a reference to the placeholder DOM element to contain the map.
+        const imgContainer = document.getElementById("animation_img2");
+		imgContainer.src = url
+}
+
+
+
+function setupDateInputs(){
+	
+	
+	
+	var date = new Date();
+	var day = date.getDate();
+	var month = date.getMonth() + 1;
+	var year = date.getFullYear();
+
+	if (month < 10) month = "0" + month;
+	if (day < 10) day = "0" + day;
+
+	var today = year + "-" + month + "-" + day;
+	$('#end_date').val(today);
+
+	var yearAgo = (year - 1)+ "-" + month+ "-" + day;
+	$('#start_date').val(yearAgo);
+
+
+	newVideo()
+
+$('#start_date, #end_date').on('change', function() {
+ //console.log('chaned')
+ newVideo()
+});
+
+
+$('#growthRange').on('input', function() {
+	
+    var newValue = this.value;
+	
+	rub.pause()
+	rub.move_to(newValue)
+    console.log(newValue)
+	//$('#newValue').html(newValue);
+}).on('change', function() {
+	
+if(playing){
+	rub.play()
+}
+});
+
+
+}
+
+function newVideo(){
+	
+	$('.jsgif').remove()
+	const imgContainer = document.getElementById("animation_img");
+
+	imgContainer.innerHTML = `<div class="col-12">
+<div class="d-flex justify-content-center">
+<div class="spinner-border color-green-dark" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+</div>
+</div>`;
+
+	$.ajax({
+		url: "localhost:8080/getVideoURL",
+		type: "POST",
+		data: {
+			start: $( "#start_date" ).val(),
+			end: $( "#end_date" ).val()
+			
+		},
+		success: function(result) {
+			console.log(result);
+			
+					initialize_animation(result)
+		},
+		error: function(result) {
+						console.log(result);
+		}
+	});
+}
+
+
+
+
+
+window.onload = function(){
+
+	setupDateInputs()
+
+}
+
+
+
+
+	</script>
+</body>

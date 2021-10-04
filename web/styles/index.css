@@ -1,0 +1,23 @@
+.d-flex div h1{
+    display: inline;
+}
+
+#satalite_img{
+    width: 100%;
+}
+
+#animation_img{
+    width: 100%;
+}
+
+#map-container {
+    height: 400px;
+    width: 100%;
+    background-color: #eee;
+}
+
+#img{
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+}
