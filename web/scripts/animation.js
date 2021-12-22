@@ -10,6 +10,20 @@ function pad(num, size) {
   return num;
 }
 
+function downloadURI(uri, name) {
+    var link = document.createElement("a");
+    link.download = name;
+    link.href = uri;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    delete link;
+}
+
+function openURI(uri){
+    window.open(uri, '_blank');
+}
+
 function timeConverter(timestamp) {
   var date = new Date(timestamp);
   var newDate =
@@ -45,6 +59,8 @@ const initialize_image = (resInfo) => {
 var playing = false;
 
 const initialize_animation = (resInfo) => {
+
+  
   const imgContainer = document.getElementById("animation_img");
 
   var url = resInfo.url;
@@ -64,6 +80,15 @@ const initialize_animation = (resInfo) => {
   });
 
   rub.load_url(url, function () {
+
+    $("#save_btn").show()    
+    $("#growthRange").show()
+    $("#Timelapse_Info").show()
+
+    document.getElementById("save_btn").onclick = function () {
+        openURI(url)
+    };
+
     imgContainer.innerHTML = "";
     console.log("oh hey, now the gif is loaded");
 
@@ -108,14 +133,6 @@ const initialize_animation = (resInfo) => {
   });
 };
 
-const initialize_animation2 = (resInfo) => {
-  var url = resInfo.url;
-
-  // Get a reference to the placeholder DOM element to contain the map.
-  const imgContainer = document.getElementById("animation_img2");
-  imgContainer.src = url;
-};
-
 function setupDateInputs() {
   var date = new Date();
   var day = date.getDate();
@@ -130,13 +147,6 @@ function setupDateInputs() {
 
   var yearAgo = year - 1 + "-" + month + "-" + day;
   $("#start_date").val(yearAgo);
-
-  newVideo();
-
-  $("#start_date, #end_date").on("change", function () {
-    //console.log('chaned')
-    newVideo();
-  });
 
   $("#growthRange")
     .on("input", function () {
@@ -156,6 +166,10 @@ function setupDateInputs() {
 
 function newVideo() {
 
+  $("#save_btn").hide()  
+  $("#growthRange").hide()
+  $("#Timelapse_Info").hide()
+
   console.log(points, mapBbox)
   $(".jsgif").remove();
   const imgContainer = document.getElementById("animation_img");
@@ -169,13 +183,13 @@ function newVideo() {
 </div>`;
 
   $.ajax({
-    url: "localhost:8080/getVideoURL",
+    url: "http://localhost:8080/getVideoURL",
     type: "POST",
     data: {
       start: $("#start_date").val(),
       end: $("#end_date").val(),
-      bbox: mapBbox,
-      points: points
+      bbox: JSON.stringify(mapBbox),
+      points: JSON.stringify(points)
     },
     success: function (result) {
       console.log(result);
@@ -190,4 +204,10 @@ function newVideo() {
 
 window.onload = function () {
   setupDateInputs();
+  $("#save_btn").hide()   
+  $("#growthRange").hide()
+  $("#Timelapse_Info").hide()
 };
+
+
+

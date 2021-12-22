@@ -34,11 +34,6 @@
 
     <link rel="stylesheet" type="text/css" href="./styles/index.css" />
 
-    <link
-      rel="manifest"
-      href="_manifest.json"
-      data-pwa-version="set_in_manifest_and_pwa_js"
-    />
     <link rel="icon" type="image/png" href="" />
     <link rel="apple-touch-icon" sizes="180x180" href="" />
     <script src="./scripts/jquery.js"></script>
@@ -100,12 +95,20 @@
             <p class="text-center mt-n2 opacity-50 font-12">
               Scroll in/out until your timelapse area is in full view.
             </p>
-            <img id="satalite_img" />
+            <div class="row justify-content-around">
+              <div class="col-6">
+                <label for="start">Start date:</label>
+                <input type="date" id="start_date" value="2021-07-22" />
+              </div>
+              <div class="col-6">
+                <label for="start">End date:</label>
+                <input type="date" id="end_date" value="2021-07-22" />
+              </div>
 
-            <div style="height: 100vw; width: 100%" id="map"></div>
+              <div style="height: 100vw; width: 100%" id="map"></div>
+            </div>
           </div>
-          <br />
-          <br />
+
           <button
             id="store_btn"
             type="submit"
@@ -142,7 +145,11 @@
             </div>
 
             <div>
-              <div class="row justify-content-around">
+              <div class="row justify-content-around" id="Timelapse_Info">
+                <p class="text-center mt-n2 opacity-50 font-12">
+                  Scroll to observe specific images. Click the image to continue
+                  the animation.
+                </p>
                 <div class="col-12">
                   <input
                     type="range"
@@ -152,17 +159,24 @@
                     id="growthRange"
                   />
                 </div>
-                <div class="col-6">
-                  <label for="start">Start date:</label>
-                  <input type="date" id="start_date" value="2021-07-22" />
-                </div>
-                <div class="col-6">
-                  <label for="start">End date:</label>
-                  <input type="date" id="end_date" value="2021-07-22" />
-                </div>
               </div>
             </div>
           </div>
+
+          <button
+            id="save_btn"
+            type="submit"
+            class="
+              btn btn-full btn-xl
+              shadow-large
+              rounded-s
+              text-uppercase
+              font-900
+              bg-green-dark
+            "
+          >
+            Save Gif
+          </button>
         </div>
       </div>
     </div>

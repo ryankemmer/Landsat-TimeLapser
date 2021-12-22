@@ -8,6 +8,12 @@ const eeService = require('./eeService')
 
 // NEW VIDEO
 router.post('/getVideoURL', async (req, res) => {
+
+  console.log(req.body)
+  console.log('bbox: ', req.body.bbox)
+  console.log('points: ', req.body.points)
+  console.log('start: ', req.body.start)
+  console.log('end: ', req.body.end)
 	
   //END DATE
   var endDate = new Date(req.body.end);
@@ -24,8 +30,10 @@ router.post('/getVideoURL', async (req, res) => {
   var finalStart = yyyy + '-' + mm + '-' + dd
 
   //MAP POINTS
-  var userbbox = req.body.bbox
-  var points = req.body.points
+  var userbbox = group = JSON.parse(req.body.bbox)
+  var points = JSON.parse(req.body.points)
+
+  console.log(userbbox,points)
 
   var aoi = ee.Geometry.Polygon(
     [[points[0],points[1],points[2],points[3]]], null,
