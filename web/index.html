@@ -1,455 +1,175 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
-<title>Landsat Timelapser</title>
-<link rel="stylesheet" type="text/css" href="./styles/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="./styles/style.css">
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i|Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i,900,900i&display=swap" rel="stylesheet">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover"
+    />
+    <title>Landsat Timelapser</title>
+    <link rel="stylesheet" type="text/css" href="./styles/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="./styles/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i|Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i,900,900i&display=swap"
+      rel="stylesheet"
+    />
 
-<link rel="stylesheet" type="text/css" href="./fonts/fontawesome/css/all.min.css">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./fonts/fontawesome/css/all.min.css"
+    />
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+      integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+      crossorigin="anonymous"
+    />
 
-<link rel="stylesheet" type="text/css" href="./styles/index.css">
+    <link rel="stylesheet" type="text/css" href="./styles/index.css" />
 
-<link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
-	<link rel="icon" type="image/png" href="./images/logo/nile-logo.png"/>
- <link rel="apple-touch-icon" sizes="180x180" href="./images/logo/nile-logo.png">
-<script src="./scripts/jquery.js"></script>
-<script src="./scripts/ee_api_js.js"></script>
-<script type="text/javascript" src="https://unpkg.com/jsgif@1.0.2/libgif.js"></script>
+    <link
+      rel="manifest"
+      href="_manifest.json"
+      data-pwa-version="set_in_manifest_and_pwa_js"
+    />
+    <link rel="icon" type="image/png" href="" />
+    <link rel="apple-touch-icon" sizes="180x180" href="" />
+    <script src="./scripts/jquery.js"></script>
+    <script src="./scripts/ee_api_js.js"></script>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/jsgif@1.0.2/libgif.js"
+    ></script>
 
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-<!-- Load Maps JavaScript API. For production apps, append your own Maps API key. -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpbgp0DBCSEmr5yLxRxdOZZPncWHHKFMA"></script>
-<!--
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <!-- Load Maps JavaScript API. For production apps, append your own Maps API key. -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpbgp0DBCSEmr5yLxRxdOZZPncWHHKFMA"></script>
+    <!--
       Load Earth Engine JavaScript API, required to add a custom tile source to the map which
       pulls map tiles from Earth Engine.
 -->
-<script src="https://ajax.googleapis.com/ajax/libs/earthengine/0.1.226/earthengine-api.min.js"></script>
-</head>
-    
-	
-<body class="detect-theme" data-highlight="highlight-green-dark" data-gradient="body-default">
-<div id="preloader"><div class="spinner-border color-green-dark" role="status"></div></div>
-    
-<div id="page">
-    
-    <div class="page-content header-clear-small">
-       
-        <div class="card card-style">
-			<div class="content mb-0">
-				<div class="mt-n2">
-					<div class="divider-icon divider-margins bg-gray-dark mx-5 mt-5"><i class="fas fa-hand-pointer font-33 mt-n3 color-green-dark bg-theme"></i></div>
-				</div>
-				<h1 class="text-center font-24">Select the location of your timelapse</h1>
-				<p class="text-center mt-n2 opacity-50 font-12">Scroll in/out until your timelapse area is in full view.</p>
-				<img id="satalite_img">
-					
-					<div style="height:100vw; width:100%"id="map"></div>
-	
-			</div>
-			<br>
-			<br>
-			<button id='store_btn' type ="submit" class=" btn btn-full btn-xl shadow-large rounded-s text-uppercase font-900 bg-green-dark">Confirm Location</button>
-			<br>
-		</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/earthengine/0.1.226/earthengine-api.min.js"></script>
+  </head>
 
-		<div class="card card-style">
-            <div class="content mb-0">
-				<div class="mt-n2">
-					<div class="divider-icon divider-margins bg-gray-dark mx-5 mt-5"><i class="fas fa-clock font-33 mt-n3 color-green-dark bg-theme"></i></div>
-					<div class="curr_desc"></div>
-				</div>
-				<h1 class="text-center font-24">Timelapse</h1>
-				<p class="text-center mt-n2 opacity-50 font-12">Toggle the timelapse using the buttons below.</p>
-				<div class="polaroid">
-					<div id="animation_img"></div>
-				</div>
-				
-				<div>
-					<div class="row justify-content-around">
-						<div class="col-12 ">
-						  <input type="range" min="1" max="100" value="50"  id="growthRange">
-						</div>
-						<div class="col-6 ">
-							<label for="start">Start date:</label>
-							<input type="date" id="start_date"  value="2021-07-22" >
-						</div>
-						<div class="col-6 ">
-							<label for="start">End date:</label>
-							<input type="date" id="end_date" value="2021-07-22" >
-						</div>
-					</div>
-				</div>
-            </div>
-        </div>
-
-		
-		
+  <body
+    class="detect-theme"
+    data-highlight="highlight-green-dark"
+    data-gradient="body-default"
+  >
+    <div id="preloader">
+      <div class="spinner-border color-green-dark" role="status"></div>
     </div>
 
-
-</div>
-
-<script type="text/javascript" src="./scripts/bootstrap.min.js"></script>
-<script type="text/javascript" src="./scripts/custom.js"></script>
-
-
-<script>
-
-    //Initialize vars
-    var lat, lon;
-    let map, infoWindow;
-    var bbox
-
-    //function to init map
-    function initMap() {
-          map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: lat, lng: lon },
-            zoom: 15,
-            mapTypeId: 'satellite'
-    });
-          
-    //Event listener for gmaps
-    google.maps.event.addListener(map, "bounds_changed", function() {
-
-             
-        points = [
-            [map.getBounds().getNorthEast().lng(),map.getBounds().getSouthWest().lat()],
-            [map.getBounds().getNorthEast().lng(),map.getBounds().getNorthEast().lat()],
-            [map.getBounds().getSouthWest().lng(),map.getBounds().getNorthEast().lat()],
-            [map.getBounds().getSouthWest().lng(),map.getBounds().getSouthWest().lat()]
-        ]
-    
-        mapBbox = [
-            map.getBounds().getSouthWest().lng(), 
-            map.getBounds().getSouthWest().lat(), 
-            map.getBounds().getNorthEast().lng(),
-            map.getBounds().getNorthEast().lat()
-        ]
-    
-    
-        document.getElementById('store_btn').onclick = function(){
-    
-            //TODO: Set variable when button is clicked
-        }
-    
-    });
-
-    //Set map to current location
-    infoWindow = new google.maps.InfoWindow();
-    const locationButton = document.createElement("button");
-    locationButton.textContent = "Pan to Current Location";
-    locationButton.classList.add("custom-map-control-button");
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-
-    locationButton.addEventListener("click", () => {
-            // Try HTML5 geolocation.
-            if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(
-                (position) => {
-                  const pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                  };
-                  infoWindow.setPosition(pos);
-                  infoWindow.setContent("Location found.");
-                  infoWindow.open(map);
-                  map.setCenter(pos);
-                },
-                () => {
-                  handleLocationError(true, infoWindow, map.getCenter());
-                }
-              );
-            } else {
-              // Browser doesn't support Geolocation
-              handleLocationError(false, infoWindow, map.getCenter());
-            }
-        });
-          
-    }
-    
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(
-            browserHasGeolocation
-              ? "Error: The Geolocation service failed."
-              : "Error: Your browser doesn't support geolocation."
-        );
-        infoWindow.open(map);
-    }
-    
-    
-    function doSomething(l1, l2){
-        lat = l1
-        lon = l2
-        initMap()
-    }
-    
-    function success(position) {
-      doSomething(position.coords.latitude, position.coords.longitude);
-    }
-    
-    function error() {
-      alert('Sorry, no position available.');
-    }
-    
-    const options = {
-      enableHighAccuracy: true,
-      maximumAge: 30000,
-      timeout: 27000
-    };
-    
-    const watchID = navigator.geolocation.watchPosition(success, error, options);
-    
-    
-</script>
-
-
-
-
-
-
-
-
-
-<script>
-
-var rub
-
-
-//get satillite image
-
-const ee_token = 'AIzaSyDpbgp0DBCSEmr5yLxRxdOZZPncWHHKFMA'
-const EE_MAP_PATH = 'https://earthengine.googleapis.com/v1alpha'
-
-function pad(num, size) {
-    num = num.toString();
-    while (num.length < size) num = "0" + num;
-    return num;
-}
-function timeConverter(timestamp){
-  var date = new Date(timestamp);
-  var newDate = date.getDate()+
-          "/"+(date.getMonth()+1)+
-          "/"+date.getFullYear()+
-          " "+pad(date.getHours(),2)+
-          ":"+pad(date.getMinutes(),2)+
-          ":"+pad(date.getSeconds(),2);
-
-  return newDate;
-}
-
-
-
-
-const initialize_image = (resInfo) => {
-
-		console.log(resInfo)
-
-		var url = resInfo.url
-		var date = timeConverter(resInfo.date)
-
-        // Get a reference to the placeholder DOM element to contain the map.
-        const imgContainer = document.getElementById("satalite_img");
-		imgContainer.src = url
-
-		const dateContainer = document.getElementById("satalite_date")
-		dateContainer.innerHTML = date
-}
-
-var playing = false
-
-const initialize_animation = (resInfo) => {
-	const imgContainer = document.getElementById("animation_img");
-
-		var url = resInfo.url
-
-function gifEnd(e){
-	console.log('end',e)
-}
-		
-		//$('#animation_img').each(function (img_tag) {
-		//	if (/.*\.gif/.test(url)) {
-				 rub = new SuperGif({
-					gif:  imgContainer,
-					auto_play:true,
-					//loop_delay:3000,
-					//max_width:'100%'
-					progressbar_height:5,
-					rubbable:true,
-					on_end:gifEnd
-				} );
-				 
-				 
-				 
-				rub.load_url(url,function(){
-	imgContainer.innerHTML = ""
-					console.log('oh hey, now the gif is loaded');
-					
-					rub.play()
-myLoop();                   //  start the loop
-
-					
-					var totalFrames = rub.get_length()
-					console.log('total ',totalFrames)
-					$('#growthRange').attr('max',totalFrames).val(0)
-					
-					
-					
-					
-					
-					
-					
-$('.jsgif').on('click', function() {
-	
-	console.log('asdfk')
-	if(rub.get_playing()){
-		
-		rub.pause()
-		 playing = false
-	}else {
-		rub.play()
-		
-		playing = true
-		myLoop()
-		 
-	}
-
-
-})
-
-var i = 1;                  //  set your counter to 1
-
-function myLoop() {         //  create a loop function
-  setTimeout(function() {   //  call a 3s setTimeout when the loop is called
-    console.log('hello');   //  your code here
-    i++;                    //  increment the counter
-    if (playing) {           //  if the counter < 10, call the loop function
-		
-		console.log('play')
-		
-			$('#growthRange').val(rub.get_current_frame())
-      myLoop();             //  ..  again which will trigger another
-    }                       //  ..  setTimeout()
-  }, 200)
-}
-
-
-
-
-				});	
-
-}
-
-
-
-
-const initialize_animation2 = (resInfo) => {
-
-		var url = resInfo.url
-
-        // Get a reference to the placeholder DOM element to contain the map.
-        const imgContainer = document.getElementById("animation_img2");
-		imgContainer.src = url
-}
-
-
-
-function setupDateInputs(){
-	
-	
-	
-	var date = new Date();
-	var day = date.getDate();
-	var month = date.getMonth() + 1;
-	var year = date.getFullYear();
-
-	if (month < 10) month = "0" + month;
-	if (day < 10) day = "0" + day;
-
-	var today = year + "-" + month + "-" + day;
-	$('#end_date').val(today);
-
-	var yearAgo = (year - 1)+ "-" + month+ "-" + day;
-	$('#start_date').val(yearAgo);
-
-
-	newVideo()
-
-$('#start_date, #end_date').on('change', function() {
- //console.log('chaned')
- newVideo()
-});
-
-
-$('#growthRange').on('input', function() {
-	
-    var newValue = this.value;
-	
-	rub.pause()
-	rub.move_to(newValue)
-    console.log(newValue)
-	//$('#newValue').html(newValue);
-}).on('change', function() {
-	
-if(playing){
-	rub.play()
-}
-});
-
-
-}
-
-function newVideo(){
-	
-	$('.jsgif').remove()
-	const imgContainer = document.getElementById("animation_img");
-
-	imgContainer.innerHTML = `<div class="col-12">
-<div class="d-flex justify-content-center">
-<div class="spinner-border color-green-dark" role="status">
-<span class="sr-only">Loading...</span>
-</div>
-</div>
-</div>`;
-
-	$.ajax({
-		url: "localhost:8080/getVideoURL",
-		type: "POST",
-		data: {
-			start: $( "#start_date" ).val(),
-			end: $( "#end_date" ).val()
-			
-		},
-		success: function(result) {
-			console.log(result);
-			
-					initialize_animation(result)
-		},
-		error: function(result) {
-						console.log(result);
-		}
-	});
-}
-
-
-
-
-
-window.onload = function(){
-
-	setupDateInputs()
-
-}
-
-
-
-
-	</script>
-</body>
+    <div id="page">
+      <div class="page-content header-clear-small">
+        <div class="card card-style">
+          <div class="content mb-0">
+            <h1 class="text-center font-24">Landsat Timelapse Generator</h1>
+            <p class="text-center mt-n2 opacity-50 font-12">
+              Authors: Ryan Kemmer, Josh Stovall
+            </p>
+          </div>
+        </div>
+
+        <div class="card card-style">
+          <div class="content mb-0">
+            <div class="mt-n2">
+              <div class="divider-icon divider-margins bg-gray-dark mx-5 mt-5">
+                <i
+                  class="
+                    fas
+                    fa-hand-pointer
+                    font-33
+                    mt-n3
+                    color-green-dark
+                    bg-theme
+                  "
+                ></i>
+              </div>
+            </div>
+            <h1 class="text-center font-24">
+              Select the location of your timelapse
+            </h1>
+            <p class="text-center mt-n2 opacity-50 font-12">
+              Scroll in/out until your timelapse area is in full view.
+            </p>
+            <img id="satalite_img" />
+
+            <div style="height: 100vw; width: 100%" id="map"></div>
+          </div>
+          <br />
+          <br />
+          <button
+            id="store_btn"
+            type="submit"
+            class="
+              btn btn-full btn-xl
+              shadow-large
+              rounded-s
+              text-uppercase
+              font-900
+              bg-green-dark
+            "
+          >
+            Confirm Location
+          </button>
+          <br />
+        </div>
+
+        <div class="card card-style">
+          <div class="content mb-0">
+            <div class="mt-n2">
+              <div class="divider-icon divider-margins bg-gray-dark mx-5 mt-5">
+                <i
+                  class="fas fa-clock font-33 mt-n3 color-green-dark bg-theme"
+                ></i>
+              </div>
+              <div class="curr_desc"></div>
+            </div>
+            <h1 class="text-center font-24">Timelapse</h1>
+            <p class="text-center mt-n2 opacity-50 font-12">
+              Toggle the timelapse using the buttons below.
+            </p>
+            <div class="polaroid">
+              <div id="animation_img"></div>
+            </div>
+
+            <div>
+              <div class="row justify-content-around">
+                <div class="col-12">
+                  <input
+                    type="range"
+                    min="1"
+                    max="100"
+                    value="50"
+                    id="growthRange"
+                  />
+                </div>
+                <div class="col-6">
+                  <label for="start">Start date:</label>
+                  <input type="date" id="start_date" value="2021-07-22" />
+                </div>
+                <div class="col-6">
+                  <label for="start">End date:</label>
+                  <input type="date" id="end_date" value="2021-07-22" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="./scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./scripts/custom.js"></script>
+    <script type="text/javascript" src="./scripts/map.js"></script>
+    <script type="text/javascript" src="./scripts/animation.js"></script>
+  </body>
+</html>
