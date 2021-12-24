@@ -81,9 +81,8 @@ const initialize_animation = (resInfo) => {
 
   rub.load_url(url, function () {
 
-    $("#save_btn").show()    
-    $("#growthRange").show()
-    $("#Timelapse_Info").show()
+    $(".timelapse, .dates").show()
+    $(".loading").hide()
 
     document.getElementById("save_btn").onclick = function () {
         openURI(url)
@@ -165,10 +164,8 @@ function setupDateInputs() {
 }
 
 function newVideo() {
-
-  $("#save_btn").hide()  
-  $("#growthRange").hide()
-  $("#Timelapse_Info").hide()
+  $(".timelapse").hide()
+  $(".loading").show()
 
   console.log(points, mapBbox)
   $(".jsgif").remove();
@@ -204,9 +201,12 @@ function newVideo() {
 
 window.onload = function () {
   setupDateInputs();
-  $("#save_btn").hide()   
-  $("#growthRange").hide()
-  $("#Timelapse_Info").hide()
+  $(".map, .timelapse, .loading, .dates").hide()   
+  document.getElementById("start").onclick = function () {
+    $('.map').show()
+    $('.about').hide()
+
+};
 };
 
 
