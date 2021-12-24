@@ -183,7 +183,7 @@ function newVideo() {
 </div>`;
 
   $.ajax({
-    url: "http://localhost:8080/getVideoURL",
+    url: "https://api.landsat-timelapser.com/getVideoURL",
     type: "POST",
     data: {
       start: $("#start_date").val(),
