@@ -6,12 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
     <title>Landsat Timelapser</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous" />
-    <link rel="stylesheet" type="text/css" href="./fonts/fontawesome/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="./styles/index.css" />
     <script src="./scripts/jquery.js"></script>
     <script src="./scripts/ee_api_js.js"></script>
     <script type="text/javascript" src="https://unpkg.com/jsgif@1.0.2/libgif.js"></script>
-
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <!-- Load Maps JavaScript API. For production apps, append your own Maps API key. -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUvJKAS7_RN2tJ6ODHC_Z2GQlNsn5zxc8"></script>
@@ -19,7 +17,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/earthengine/0.1.226/earthengine-api.min.js"></script>
   </head>
   <body>
-
     <div id="page">
         <div class="about">
             <h1>Landsat Timelapser</h1>
@@ -34,19 +31,13 @@
               <a rel="noopener" target="_blank" href="https://github.com/dylane1999">Dylan Edwards</a>
             </p>
             <button id="start">Start</button>
-
         </div>
-
-
-        
           <div class="map">
             <h2> Select the location of your timelapse </h2>
             <p>Scroll in/out until your timelapse area is in full view. </p>
               <div id="map"></div>
               <button id="confirm_location">Confirm Location</button>
           </div>
-
-
           <div class="dates">
         <div>
           <label>Start date:</label>
@@ -56,34 +47,26 @@
           <label>End date:</label>
           <input type="date" id="end_date" />
         </div>
-
       </div>
-
       <div class="loading">
         Loading...<br/>
         hang tight while our computers do their magic
       </div>
-
         <div class="timelapse">
           <div>
-            <h1 class="text-center font-24">Timelapse</h1>
-            <p class="text-center mt-n2 opacity-50 font-12">
-              Toggle the timelapse using the buttons below.
-            </p>
+            <h1>Timelapse</h1>
+            <p>Toggle the timelapse using the buttons below.</p>
             <div class="polaroid">
               <div id="animation_img"></div>
             </div>
-
-              <div class="row justify-content-around" id="Timelapse_Info">
-                <p class="text-center mt-n2 opacity-50 font-12">
+              <div>
+                <p>
                   Scroll to observe specific images. Click the image to continue
                   the animation.
                 </p>
                 <input type="range" min="1" max="100" value="50" id="growthRange"/>
-
               </div>
           </div>
-
           <button id="save_btn">Save GIF <i class="fas fa-save"></i></button>
         </div>
     </div>

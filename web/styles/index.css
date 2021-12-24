@@ -1,12 +1,12 @@
 #map {
   height: 100vw; 
   width: 100%;
-  max-width: 700px;
+  max-width: min(700px,100vw);
   max-height: 700px;
   margin:auto
 }
 input[type=range]{
-  max-width: 700px;
+  max-width:  min(700px,100vw);
   margin:auto
 }
 .map{
@@ -57,5 +57,4 @@ button {
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-  
 }
