@@ -1,4 +1,5 @@
 var rub;
+var playing = false;
 
 //get satillite image
 const ee_token = "AIzaSyDpbgp0DBCSEmr5yLxRxdOZZPncWHHKFMA";
@@ -21,7 +22,9 @@ function downloadURI(uri, name) {
 }
 
 function openURI(uri) {
-  window.open(uri, '_blank');
+  //window.open(uri, '_blank');
+  window.location.assign(uri);
+
 }
 
 function timeConverter(timestamp) {
@@ -51,7 +54,6 @@ const initialize_image = (resInfo) => {
   dateContainer.innerHTML = date;
 };
 
-var playing = false;
 
 const initialize_animation = (resInfo) => {
   const imgContainer = document.getElementById("animation_img");
@@ -64,13 +66,21 @@ const initialize_animation = (resInfo) => {
 
   rub = new SuperGif({
     gif: imgContainer,
-    auto_play: true,
-    //loop_delay:3000,
-    //max_width:'100%'
+    auto_play: false,
+    max_width:'100%',
     progressbar_height: 5,
     rubbable: true,
     on_end: gifEnd,
   });
+
+  $("#growthRange")
+    .on("input", function () {
+      rub.pause()
+      rub.move_to(this.value)
+    })
+    .on("change", function () {
+      if (playing) rub.play()
+    });
 
   rub.load_url(url, function () {
 
@@ -92,8 +102,9 @@ const initialize_animation = (resInfo) => {
     $("#growthRange").attr("max", totalFrames).val(0);
 
     $(".jsgif").on("click", function () {
-      console.log("asdfk");
-      if (rub.get_playing()) {
+      console.log("clicked GIF");
+      if (rub.get_playing()) 
+      {
         rub.pause();
         playing = false;
       } else {
@@ -103,14 +114,12 @@ const initialize_animation = (resInfo) => {
       }
     });
 
-    var i = 1; //  set your counter to 1
-
+    // loop to keep GIF and slider in sync
+    var i = 1;
     function myLoop() {
       setTimeout(function () {
-        console.log("hello");
         i++;
         if (playing) {
-          console.log("play");
           $("#growthRange").val(rub.get_current_frame());
           myLoop();
         }
@@ -128,33 +137,21 @@ function setupDateInputs() {
   if (month < 10) month = "0" + month;
   if (day < 10) day = "0" + day;
 
-  var today = year + "-" + month + "-" + day;
+  const today = year + "-" + month + "-" + day
+
+  // set maximum/minimum date range
+  $("#start_date, #end_date").attr('max',today);
+  $("#start_date, #end_date").attr('min',year - 30 + "-" + month + "-" + day); // 30 years ago
+
+  // set default dates
   $("#end_date").val(today);
+  $("#start_date").val(year - 1 + "-" + month + "-" + day); // one year ago
 
-  var yearAgo = year - 1 + "-" + month + "-" + day;
-  $("#start_date").val(yearAgo);
-
-  $("#growthRange")
-    .on("input", function () {
-      var newValue = this.value;
-
-      rub.pause();
-      rub.move_to(newValue);
-      console.log(newValue);
-      //$('#newValue').html(newValue);
-    })
-    .on("change", function () {
-      if (playing) {
-        rub.play();
-      }
-    });
 }
 
 function newVideo() {
   $(".timelapse").hide()
   $(".loading").show()
-
-  console.log(points, mapBbox)
   $(".jsgif").remove();
   const imgContainer = document.getElementById("animation_img");
 
@@ -172,7 +169,6 @@ function newVideo() {
     success: function (result) {
       console.log(result);
       initialize_animation(result);
-
     },
     error: function (result) {
       console.log(result);
@@ -182,14 +178,17 @@ function newVideo() {
 
 window.onload = function () {
   setupDateInputs();
-  $(".map, .timelapse, .loading, .dates").hide()
   document.getElementById("start").onclick = function () {
     $('.map').show()
     $('.about').hide()
   };
-
+  document.getElementById("confirm_location").onclick = function () {
+    $(".map").hide()
+    $(".dates").show()
+  };
   document.getElementById("confirm_dates").onclick = function () {
-    newVideo();
+    newVideo()
+    $(".dates").hide()
   };
 
 };

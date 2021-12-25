@@ -2,37 +2,50 @@
 <html lang="en">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
   <title>Landsat Timelapser</title>
-  <link rel="stylesheet" type="text/css" href="./styles/index.css" />
+  <meta name="description" content="Web application for creating time-lapses with publicly available Landsat Satellite imagery" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="./index.css" />
   <script src="./scripts/jquery.js"></script>
   <script src="./scripts/ee_api_js.js"></script>
-  <script type="text/javascript" src="https://unpkg.com/jsgif@1.0.2/libgif.js"></script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-  <!-- Load Maps JavaScript API. For production apps, append your own Maps API key. -->
+  <script src="https://unpkg.com/jsgif@1.0.2/libgif.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUvJKAS7_RN2tJ6ODHC_Z2GQlNsn5zxc8"></script>
-  <!-- Load Earth Engine JavaScript API, required to add a custom tile source to the map which pulls map tiles from Earth Engine. -->
   <script src="https://ajax.googleapis.com/ajax/libs/earthengine/0.1.226/earthengine-api.min.js"></script>
 </head>
 
 <body>
   <div id="page">
     <div class="about">
-      <h1>Landsat Timelapse Generator</h1>
-      <p>An open-source project to make publically availible Landsat 8 Satillite Imagery readily usable for timelapse generation.</p>
+      <h1>Landsat Timelapser</h1>
+      <p>An open-source project to make publically availible <a target="_blank"
+          href="https://landsat.gsfc.nasa.gov/">Landsat 8 Satillite Imagery</a> readily usable for timelapse generation.
+      </p>
+      <small>Made by <a rel="noopener" target="_blank" href="https://github.com/ryankemmer">Ryan Kemmer</a>, <a
+          rel="noopener" target="_blank" href="https://github.com/joshstovall">Josh Stovall</a>, <a rel="noopener"
+          target="_blank" href="https://github.com/dylane1999">Dylan Edwards</a></small>
+      <div class="github"><a rel="noopener" target="_blank" class="github-button"
+          href="https://github.com/ryankemmer/Landsat-TimeLapser"
+          data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large"
+          aria-label="Fork ryankemmer/Landsat-TimeLapser on GitHub">Fork on GitHub</a></div>
       <button id="start">Start</button>
+      <div class="googleearth-engine">
+        <small>Powered by</small>
+        <a rel="noopener" target="_blank" href="https://earthengine.google.com/">
+          <img src="./assets/googleearth-engine.svg" class="icon" />
+          <img src="https://earthengine.google.com/static/images/GoogleEarthEngine_Grey_108.png" />
+        </a>
+      </div>
     </div>
-    <div class="map">
+    <div class="map" hidden>
       <h2> Select the location of your timelapse </h2>
       <p>Scroll in/out until your timelapse area is in full view. </p>
       <div id="map"></div>
+      <span id="coordinates"></span>
       <button id="confirm_location">Confirm Location</button>
     </div>
-    <div class="dates">
+    <div class="dates" hidden>
       <h1>Select Dates</h1>
-      <p>Select the start and end dates for your timelapse.</p>
+      <p>Choose start/end dates for your timelapse.</p>
       <div>
         <div>
           <label>Start date:</label>
@@ -45,30 +58,37 @@
       </div>
       <button id="confirm_dates">Confirm Dates</button>
     </div>
-    <div class="loading">
+    <div class="loading" hidden>
       Loading...<br />
-      hang tight while our computers do their magic
+      hang tight while our computers do their magic 🪄
     </div>
-    <div class="timelapse">
-        <h1>Timelapse</h1>
-        <p>Toggle the timelapse using the buttons below.</p>
-        <div class="polaroid">
-          <div id="animation_img"></div>
-        </div>
-        <div>
-          <p>Scroll to observe specific images. Click the image to continue the animation.</p>
-          <input type="range" min="1" max="100" value="50" id="growthRange" />
-        </div>
+    <div class="timelapse" hidden>
+      <h1>Timelapse</h1>
+      <p>Toggle the timelapse using the buttons below.</p>
+      <div class="polaroid">
+        <div id="animation_img"></div>
+      </div>
+      <div>
+        <p>Scroll to observe specific images. Click the image to continue the animation.</p>
+        <input type="range" min="1" max="100" value="50" id="growthRange" />
+      </div>
       <button id="save_btn">Save GIF <i class="fas fa-save"></i></button>
     </div>
   </div>
-  <p class="authors">
+  <div class="authors">
     Authors:
     <a rel="noopener" target="_blank" href="https://github.com/ryankemmer">Ryan Kemmer</a>,
     <a rel="noopener" target="_blank" href="https://github.com/joshstovall">Josh Stovall</a>,
     <a rel="noopener" target="_blank" href="https://github.com/dylane1999">Dylan Edwards</a>
-  </p>
-  <script type="text/javascript" src="./scripts/map.js"></script>
-  <script type="text/javascript" src="./scripts/animation.js"></script>
+    <div class="github">
+      <a class="github-button" href="https://github.com/ryankemmer/Landsat-TimeLapser/fork"
+        data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large"
+        aria-label="Fork ryankemmer/Landsat-TimeLapser on GitHub">Fork on GitHub</a>
+    </div>
+  </div>
+
+  <script src="./scripts/map.js"></script>
+  <script src="./scripts/animation.js"></script>
+  <script src="https://buttons.github.io/buttons.js" async defer></script>
 </body>
 </html>

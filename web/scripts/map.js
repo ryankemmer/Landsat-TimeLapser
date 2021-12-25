@@ -10,29 +10,20 @@ function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: lat, lng: lon },
     zoom: 15,
+    minZoom: 10,
+    maxZoom: 30,
     mapTypeId: "satellite",
+    disableDoubleClickZoom: true,
+    scaleControl: true,
+    fullscreenControl: false,
+    streetViewControl: false,
+    panControl: false,
+    rotateControl: false,
+    mapTypeControl: false
   });
 
   //Event listener for gmaps
   google.maps.event.addListener(map, "bounds_changed", function () {
-    points = [
-      [
-        map.getBounds().getNorthEast().lng(),
-        map.getBounds().getSouthWest().lat(),
-      ],
-      [
-        map.getBounds().getNorthEast().lng(),
-        map.getBounds().getNorthEast().lat(),
-      ],
-      [
-        map.getBounds().getSouthWest().lng(),
-        map.getBounds().getNorthEast().lat(),
-      ],
-      [
-        map.getBounds().getSouthWest().lng(),
-        map.getBounds().getSouthWest().lat(),
-      ],
-    ];
 
     mapBbox = [
       map.getBounds().getSouthWest().lng(),
@@ -41,14 +32,8 @@ function initMap() {
       map.getBounds().getNorthEast().lat(),
     ];
 
-    document.getElementById("confirm_location").onclick = function () {
-      $(".map").hide()
-      $(".dates").show()
-    };
-    document.getElementById("confirm_dates").onclick = function () {
-      newVideo()
-      $(".dates").hide()
-    };
+    $("#coordinates").html(mapBbox.map(e => e.toFixed(4)).join(", "))
+
   });
 
   //Set map to current location

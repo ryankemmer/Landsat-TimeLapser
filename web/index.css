@@ -9,12 +9,16 @@
 input[type=range] {
   max-width: 700px;
   margin: auto;
-  width:100%;
+  width: 100%;
+}
+
+.map, .timelapse, .dates {
+  margin-top: 5em
 }
 
 .map {
   text-align: center;
-  padding: 2em
+  padding: 2em;
 }
 
 .map p {
@@ -31,6 +35,7 @@ input[type=range] {
 
 .about {
   padding: 10em;
+  margin-top: 30vh
 }
 
 .dates {
@@ -39,25 +44,27 @@ input[type=range] {
 
 button {
   margin-top: 1em;
-  font-size: 1.4em;
+  font-size: 1.2em;
   border: none;
   border-radius: 10px;
   padding: 1em;
-  cursor:pointer;
+  cursor: pointer;
 }
 
-button:hover{
-  background-color:grey;
-  transition:background-color 1s
-}
-
-#start {
-  margin-top: 2em;
+button:hover {
+  background-color: grey;
+  transition: background-color 1s
 }
 
 #start {
+  display: block;
+  margin:auto;
   margin-top: 2em;
   font-size: 1.4em;
+  padding: 1em 3em 1em 3em;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
 }
 
 #page {
@@ -65,7 +72,7 @@ button:hover{
 }
 
 #page>div {
-  padding: min(1em,5px)
+  padding: min(1em, 5px)
 }
 
 .authors {
@@ -81,7 +88,7 @@ a {
   text-decoration: none;
 }
 
-a:hover {
+a:hover:not(div a) {
   color: inherit;
   text-decoration: underline;
 }
@@ -99,7 +106,8 @@ a:hover {
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
-  margin-top: 1em;
+  margin-top: 3em;
+  padding: 3em 0 3em 0;
 }
 
 .dates>div>div {
@@ -126,4 +134,38 @@ a:hover {
   button {
     background: black
   }
+}
+
+.github {
+  text-align: right;
+  position: fixed;
+  width: 100%;
+  right: 1em;
+  top: 1em
+}
+
+.googleearth-engine {
+  text-align: center;
+  margin-top: 5em;
+}
+
+.googleearth-engine small {
+  display: inline-table;
+  width: 100%
+}
+
+.googleearth-engine img {
+
+  height: 50px
+}
+
+.googleearth-engine img.icon {
+
+  height: 40px;
+  margin-bottom: 10px
+}
+
+#coordinates {
+  display: block;
+  margin-top: 1em;
 }
