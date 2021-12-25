@@ -63,6 +63,7 @@ const initialize_animation = (resInfo) => {
 
   $("#growthRange")
     .on("input", function () {
+      console.log(this.value)
       rub.pause()
       rub.move_to(this.value)
     })
@@ -77,6 +78,12 @@ const initialize_animation = (resInfo) => {
 
     document.getElementById("save_btn").onclick = function () {
       openURI(url)
+    };
+
+    //  $("#start_date, #end_date").attr('max',today);
+
+    document.getElementById("end_date").onchange = function () {
+      newVideo()
     };
 
     imgContainer.innerHTML = "";
@@ -179,6 +186,7 @@ window.onload = function () {
   document.getElementById("confirm_dates").onclick = function () {
     newVideo()
     $(".dates").hide()
+    $("#dates").insertBefore('.jsgif')
   };
 
 };

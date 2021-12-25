@@ -48,7 +48,7 @@
     <div class="dates" hidden>
       <h1>Select Dates</h1>
       <p>Choose start/end dates for your timelapse.</p>
-      <div>
+      <div id="dates">
         <div>
           <label>Start date:</label>
           <input type="date" id="start_date" />
@@ -67,9 +67,7 @@
     <div class="timelapse" hidden>
       <h1>Timelapse</h1>
       <p>Toggle the timelapse using the buttons below.</p>
-      <div class="polaroid">
         <div id="animation_img"></div>
-      </div>
       <div>
         <p>Scroll to observe specific images. Click the image to continue the animation.</p>
         <input type="range" min="1" max="100" value="50" id="growthRange" />
