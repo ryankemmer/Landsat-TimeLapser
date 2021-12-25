@@ -25,6 +25,25 @@ function initMap() {
   //Event listener for gmaps
   google.maps.event.addListener(map, "bounds_changed", function () {
 
+    points = [
+      [
+        map.getBounds().getNorthEast().lng(),
+        map.getBounds().getSouthWest().lat(),
+      ],
+      [
+        map.getBounds().getNorthEast().lng(),
+        map.getBounds().getNorthEast().lat(),
+      ],
+      [
+        map.getBounds().getSouthWest().lng(),
+        map.getBounds().getNorthEast().lat(),
+      ],
+      [
+        map.getBounds().getSouthWest().lng(),
+        map.getBounds().getSouthWest().lat(),
+      ],
+    ];
+
     mapBbox = [
       map.getBounds().getSouthWest().lng(),
       map.getBounds().getSouthWest().lat(),
