@@ -11,17 +11,17 @@ function pad(num, size) {
 }
 
 function downloadURI(uri, name) {
-    var link = document.createElement("a");
-    link.download = name;
-    link.href = uri;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    delete link;
+  var link = document.createElement("a");
+  link.download = name;
+  link.href = uri;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  delete link;
 }
 
-function openURI(uri){
-    window.open(uri, '_blank');
+function openURI(uri) {
+  window.open(uri, '_blank');
 }
 
 function timeConverter(timestamp) {
@@ -44,14 +44,9 @@ function timeConverter(timestamp) {
 
 const initialize_image = (resInfo) => {
   console.log(resInfo);
-
   var url = resInfo.url;
   var date = timeConverter(resInfo.date);
-
-  // Get a reference to the placeholder DOM element to contain the map.
-  const imgContainer = document.getElementById("satalite_img");
-  imgContainer.src = url;
-
+  document.getElementById("satalite_img").src = url;
   const dateContainer = document.getElementById("satalite_date");
   dateContainer.innerHTML = date;
 };
@@ -59,8 +54,6 @@ const initialize_image = (resInfo) => {
 var playing = false;
 
 const initialize_animation = (resInfo) => {
-
-  
   const imgContainer = document.getElementById("animation_img");
 
   var url = resInfo.url;
@@ -81,11 +74,11 @@ const initialize_animation = (resInfo) => {
 
   rub.load_url(url, function () {
 
-    $(".timelapse, .dates").show()
+    $(".timelapse").show()
     $(".loading").hide()
 
     document.getElementById("save_btn").onclick = function () {
-        openURI(url)
+      openURI(url)
     };
 
     imgContainer.innerHTML = "";
@@ -105,7 +98,6 @@ const initialize_animation = (resInfo) => {
         playing = false;
       } else {
         rub.play();
-
         playing = true;
         myLoop();
       }
@@ -114,19 +106,14 @@ const initialize_animation = (resInfo) => {
     var i = 1; //  set your counter to 1
 
     function myLoop() {
-      //  create a loop function
       setTimeout(function () {
-        //  call a 3s setTimeout when the loop is called
-        console.log("hello"); //  your code here
-        i++; //  increment the counter
+        console.log("hello");
+        i++;
         if (playing) {
-          //  if the counter < 10, call the loop function
-
           console.log("play");
-
           $("#growthRange").val(rub.get_current_frame());
-          myLoop(); //  ..  again which will trigger another
-        } //  ..  setTimeout()
+          myLoop();
+        }
       }, 200);
     }
   });
@@ -171,13 +158,7 @@ function newVideo() {
   $(".jsgif").remove();
   const imgContainer = document.getElementById("animation_img");
 
-  imgContainer.innerHTML = `<div class="col-12">
-<div class="d-flex justify-content-center">
-<div class="spinner-border color-green-dark" role="status">
-<span class="sr-only">Loading...</span>
-</div>
-</div>
-</div>`;
+  imgContainer.innerHTML = `<span class="sr-only">Loading...</span>`;
 
   $.ajax({
     url: "https://api.landsat-timelapser.com/getVideoURL",
@@ -190,24 +171,25 @@ function newVideo() {
     },
     success: function (result) {
       console.log(result);
-
       initialize_animation(result);
+
     },
     error: function (result) {
       console.log(result);
-    },
+    }
   });
 }
 
 window.onload = function () {
   setupDateInputs();
-  $(".map, .timelapse, .loading, .dates").hide()   
+  $(".map, .timelapse, .loading, .dates").hide()
   document.getElementById("start").onclick = function () {
     $('.map').show()
     $('.about').hide()
+  };
+
+  document.getElementById("confirm_dates").onclick = function () {
+    newVideo();
+  };
 
 };
-};
-
-
-

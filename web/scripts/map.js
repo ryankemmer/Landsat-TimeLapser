@@ -42,8 +42,12 @@ function initMap() {
     ];
 
     document.getElementById("confirm_location").onclick = function () {
-      newVideo()
       $(".map").hide()
+      $(".dates").show()
+    };
+    document.getElementById("confirm_dates").onclick = function () {
+      newVideo()
+      $(".dates").hide()
     };
   });
 

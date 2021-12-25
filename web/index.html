@@ -1,44 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
-    <title>Landsat Timelapser</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous" />
-    <link rel="stylesheet" type="text/css" href="./styles/index.css" />
-    <script src="./scripts/jquery.js"></script>
-    <script src="./scripts/ee_api_js.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/jsgif@1.0.2/libgif.js"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <!-- Load Maps JavaScript API. For production apps, append your own Maps API key. -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUvJKAS7_RN2tJ6ODHC_Z2GQlNsn5zxc8"></script>
-    <!-- Load Earth Engine JavaScript API, required to add a custom tile source to the map which pulls map tiles from Earth Engine. -->
-    <script src="https://ajax.googleapis.com/ajax/libs/earthengine/0.1.226/earthengine-api.min.js"></script>
-  </head>
-  <body>
-    <div id="page">
-        <div class="about">
-            <h1>Landsat Timelapser</h1>
-            <h1 hidden>Landsat Timelapse Generator</h1>
-            <p>
-              An open-source project to make publically availible Landsat 8 Satillite Imagery readily usable for timelapse generation.
-            </p>
-            <p class="authors">
-              Authors: 
-              <a rel="noopener" target="_blank" href="https://github.com/ryankemmer">Ryan Kemmer</a>, 
-              <a rel="noopener" target="_blank" href="https://github.com/joshstovall">Josh Stovall</a>, 
-              <a rel="noopener" target="_blank" href="https://github.com/dylane1999">Dylan Edwards</a>
-            </p>
-            <button id="start">Start</button>
-        </div>
-          <div class="map">
-            <h2> Select the location of your timelapse </h2>
-            <p>Scroll in/out until your timelapse area is in full view. </p>
-              <div id="map"></div>
-              <button id="confirm_location">Confirm Location</button>
-          </div>
-          <div class="dates">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+  <title>Landsat Timelapser</title>
+  <link rel="stylesheet" type="text/css" href="./styles/index.css" />
+  <script src="./scripts/jquery.js"></script>
+  <script src="./scripts/ee_api_js.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/jsgif@1.0.2/libgif.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <!-- Load Maps JavaScript API. For production apps, append your own Maps API key. -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUvJKAS7_RN2tJ6ODHC_Z2GQlNsn5zxc8"></script>
+  <!-- Load Earth Engine JavaScript API, required to add a custom tile source to the map which pulls map tiles from Earth Engine. -->
+  <script src="https://ajax.googleapis.com/ajax/libs/earthengine/0.1.226/earthengine-api.min.js"></script>
+</head>
+
+<body>
+  <div id="page">
+    <div class="about">
+      <h1>Landsat Timelapse Generator</h1>
+      <p>An open-source project to make publically availible Landsat 8 Satillite Imagery readily usable for timelapse generation.</p>
+      <button id="start">Start</button>
+    </div>
+    <div class="map">
+      <h2> Select the location of your timelapse </h2>
+      <p>Scroll in/out until your timelapse area is in full view. </p>
+      <div id="map"></div>
+      <button id="confirm_location">Confirm Location</button>
+    </div>
+    <div class="dates">
+      <h1>Select Dates</h1>
+      <p>Select the start and end dates for your timelapse.</p>
+      <div>
         <div>
           <label>Start date:</label>
           <input type="date" id="start_date" />
@@ -48,30 +43,32 @@
           <input type="date" id="end_date" />
         </div>
       </div>
-      <div class="loading">
-        Loading...<br/>
-        hang tight while our computers do their magic
-      </div>
-        <div class="timelapse">
-          <div>
-            <h1>Timelapse</h1>
-            <p>Toggle the timelapse using the buttons below.</p>
-            <div class="polaroid">
-              <div id="animation_img"></div>
-            </div>
-              <div>
-                <p>
-                  Scroll to observe specific images. Click the image to continue
-                  the animation.
-                </p>
-                <input type="range" min="1" max="100" value="50" id="growthRange"/>
-              </div>
-          </div>
-          <button id="save_btn">Save GIF <i class="fas fa-save"></i></button>
-        </div>
+      <button id="confirm_dates">Confirm Dates</button>
     </div>
-    <script type="text/javascript" src="./scripts/custom.js"></script>
-    <script type="text/javascript" src="./scripts/map.js"></script>
-    <script type="text/javascript" src="./scripts/animation.js"></script>
-  </body>
+    <div class="loading">
+      Loading...<br />
+      hang tight while our computers do their magic
+    </div>
+    <div class="timelapse">
+        <h1>Timelapse</h1>
+        <p>Toggle the timelapse using the buttons below.</p>
+        <div class="polaroid">
+          <div id="animation_img"></div>
+        </div>
+        <div>
+          <p>Scroll to observe specific images. Click the image to continue the animation.</p>
+          <input type="range" min="1" max="100" value="50" id="growthRange" />
+        </div>
+      <button id="save_btn">Save GIF <i class="fas fa-save"></i></button>
+    </div>
+  </div>
+  <p class="authors">
+    Authors:
+    <a rel="noopener" target="_blank" href="https://github.com/ryankemmer">Ryan Kemmer</a>,
+    <a rel="noopener" target="_blank" href="https://github.com/joshstovall">Josh Stovall</a>,
+    <a rel="noopener" target="_blank" href="https://github.com/dylane1999">Dylan Edwards</a>
+  </p>
+  <script type="text/javascript" src="./scripts/map.js"></script>
+  <script type="text/javascript" src="./scripts/animation.js"></script>
+</body>
 </html>
