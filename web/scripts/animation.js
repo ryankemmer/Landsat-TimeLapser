@@ -11,20 +11,8 @@ function pad(num, size) {
   return num;
 }
 
-function downloadURI(uri, name) {
-  var link = document.createElement("a");
-  link.download = name;
-  link.href = uri;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  delete link;
-}
-
 function openURI(uri) {
-  //window.open(uri, '_blank');
-  window.location.assign(uri);
-
+  window.open(uri, '_blank');
 }
 
 function timeConverter(timestamp) {
@@ -152,6 +140,8 @@ function setupDateInputs() {
 function newVideo() {
   $(".timelapse").hide()
   $(".loading").show()
+
+  console.log(points, mapBbox)
   $(".jsgif").remove();
   const imgContainer = document.getElementById("animation_img");
 
