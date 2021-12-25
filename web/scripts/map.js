@@ -1,6 +1,6 @@
 //Initialize vars
 var lat, lon;
-let map, infoWindow;
+let map = false, infoWindow;
 var bbox;
 var points;
 var mapBbox;
@@ -11,7 +11,7 @@ function initMap() {
     center: { lat: lat, lng: lon },
     zoom: 15,
     minZoom: 10,
-    maxZoom: 30,
+    maxZoom: 50,
     mapTypeId: "satellite",
     disableDoubleClickZoom: true,
     scaleControl: true,
@@ -94,7 +94,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 function loadMap(l1, l2) {
   lat = l1;
   lon = l2;
-  initMap();
+  if(!map) initMap();
 }
 
 function success(position) {

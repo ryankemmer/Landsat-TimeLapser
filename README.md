@@ -1,4 +1,4 @@
-# Landsat-TimeLapser 🛰️
+# Landsat TimeLapser 🛰️
 
 
 <p align="center">
@@ -19,6 +19,7 @@ An open-source web application for creating time-lapses with [Landsat 8 Satillit
 * Make a timelapse of any loction on earth
 * Set custom start/end dates 
 * Export timelapse as GIF
+* Scrub through timelapse with slider
 
 
 

@@ -12,8 +12,20 @@ input[type=range] {
   width: 100%;
 }
 
-.map, .timelapse, .dates {
-  margin-top: 5em
+
+.about {
+  margin-top: 20vh 
+
+}
+@media screen and (min-width: 800px) {
+ 
+  .map, .timelapse, .dates {
+    margin-top: 5vh
+  }
+  .about {
+    margin-top: 30vh !important
+
+  }
 }
 
 .map {
@@ -35,11 +47,7 @@ input[type=range] {
 
 .about {
   padding: 10em;
-  margin-top: 30vh
-}
-
-.dates {
-  margin-top: 10em;
+  
 }
 
 button {
@@ -168,4 +176,9 @@ a:hover:not(.googleearth-engine a) {
 #coordinates {
   display: block;
   margin-top: 1em;
+}
+
+canvas {
+  max-width:700px;
+  width:100%
 }

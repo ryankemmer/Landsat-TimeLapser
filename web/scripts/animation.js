@@ -18,18 +18,12 @@ function openURI(uri) {
 function timeConverter(timestamp) {
   var date = new Date(timestamp);
   var newDate =
-    date.getDate() +
-    "/" +
-    (date.getMonth() + 1) +
-    "/" +
-    date.getFullYear() +
-    " " +
-    pad(date.getHours(), 2) +
-    ":" +
-    pad(date.getMinutes(), 2) +
-    ":" +
+    date.getDate() +"/" +
+    (date.getMonth() + 1) +"/" +
+    date.getFullYear() +" " +
+    pad(date.getHours(), 2) +":" +
+    pad(date.getMinutes(), 2) +":" +
     pad(date.getSeconds(), 2);
-
   return newDate;
 }
 
@@ -45,12 +39,7 @@ const initialize_image = (resInfo) => {
 
 const initialize_animation = (resInfo) => {
   const imgContainer = document.getElementById("animation_img");
-
   var url = resInfo.url;
-
-  function gifEnd(e) {
-    console.log("end", e);
-  }
 
   rub = new SuperGif({
     gif: imgContainer,
@@ -60,6 +49,10 @@ const initialize_animation = (resInfo) => {
     rubbable: true,
     on_end: gifEnd,
   });
+
+  function gifEnd(e) {
+    console.log("end", e)
+  }
 
   $("#growthRange")
     .on("input", function () {
@@ -79,8 +72,6 @@ const initialize_animation = (resInfo) => {
     document.getElementById("save_btn").onclick = function () {
       openURI(url)
     };
-
-    //  $("#start_date, #end_date").attr('max',today);
 
     document.getElementById("end_date").onchange = function () {
       newVideo()
