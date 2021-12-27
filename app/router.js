@@ -40,6 +40,7 @@ router.post('/getVideoURL', async (req, res) => {
   var imgCol = ee.ImageCollection('LANDSAT/LC08/C01/T1_RT')
     .filterBounds(ee.Geometry.BBox(userbbox[0],userbbox[1],userbbox[2],userbbox[3]))
     .filterDate(finalStart, finalEnd)
+
     .sort('system:time_start', true)
     .limit(50)
 
