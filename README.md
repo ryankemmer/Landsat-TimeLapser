@@ -7,14 +7,16 @@
   <img src="https://user-images.githubusercontent.com/40344766/147378199-335d8324-93da-4636-827f-8816aa546984.gif" width="32%">
 </p>
 
+# Usage
+
+The project is currently availible for public use at https://landsat-timelapser.com/.
+
 
 # About
 
 An open-source web application for creating time-lapses with [Landsat 8 Satillite Imagery](https://landsat.gsfc.nasa.gov/) powered by [Google Earth Engine](https://earthengine.google.com/).  This application allows the user to create a timelapse of any loction on earth. 
 
 Create timelapses in a specified area with a date range, and save them to your computer as a gif! 
-
-The project is currently availible for public use at https://landsat-timelapser.com/ 
  
  > Created by [Ryan Kemmer](https://github.com/ryankemmer), [Josh Stovall](https://joshstovall.com), [Zharfa Nurrachma](https://www.linkedin.com/in/zharfa-nurrachma/) and [Dylan Edwards](https://github.com/dylane1999)
 
