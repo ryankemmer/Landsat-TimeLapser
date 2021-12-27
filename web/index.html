@@ -1,84 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Landsat Timelapser</title>
+    <meta
+      name="description"
+      content="Web application for creating time-lapses with publicly available Landsat Satellite imagery"
+    />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="canonical" href="http://landsat-timelapser.com/" />
+    <link rel="stylesheet" href="./index.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛰️</text></svg>"
+    />
+    <script src="./scripts/jquery.js"></script>
+    <script src="./scripts/ee_api_js.js"></script>
+    <script src="https://unpkg.com/jsgif@1.0.2/libgif.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUvJKAS7_RN2tJ6ODHC_Z2GQlNsn5zxc8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/earthengine/0.1.226/earthengine-api.min.js"></script>
+  </head>
 
-<head>
-  <title>Landsat Timelapser</title>
-  <meta name="description" content="Web application for creating time-lapses with publicly available Landsat Satellite imagery" />
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="canonical" href="http://landsat-timelapser.com/" />
-  <link rel="stylesheet" href="./index.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛰️</text></svg>">
-  <script src="./scripts/jquery.js"></script>
-  <script src="./scripts/ee_api_js.js"></script>
-  <script src="https://unpkg.com/jsgif@1.0.2/libgif.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUvJKAS7_RN2tJ6ODHC_Z2GQlNsn5zxc8"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/earthengine/0.1.226/earthengine-api.min.js"></script>
-</head>
-
-<body>
-  <div id="page">
-    <div class="about">
-      <h1>Landsat Timelapser 🛰️</h1>
-      <p>An open-source project to make publically availible <a target="_blank"
-          href="https://landsat.gsfc.nasa.gov/">Landsat 8 Satillite Imagery</a> readily usable for timelapse generation.
-      </p>
-      <small>Made by <a rel="noopener" target="_blank" href="https://github.com/ryankemmer">Ryan Kemmer</a>, <a
-          rel="noopener" target="_blank" href="https://github.com/joshstovall">Josh Stovall</a>, <a rel="noopener"
-          target="_blank" href="https://github.com/dylane1999">Dylan Edwards</a></small>
-      <div class="github"><a rel="noopener" target="_blank" class="github-button"
-          href="https://github.com/ryankemmer/Landsat-TimeLapser"
-          data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large"
-          aria-label="Fork ryankemmer/Landsat-TimeLapser on GitHub">Fork on GitHub</a></div>
-      <button id="start">Start</button>
-      <div class="googleearth-engine">
-        <small>Powered by</small>
-        <a rel="noopener" target="_blank" href="https://earthengine.google.com/">
-          <img src="./assets/googleearth-engine.svg" class="icon" alt="Google Earth Engine Logo"/>
-          <img src="https://earthengine.google.com/static/images/GoogleEarthEngine_Grey_108.png" alt="Goole Earth Engine" />
-        </a>
-      </div>
-    </div>
-    <div class="map" hidden>
-      <h2> Select the location of your timelapse </h2>
-      <p>Scroll in/out until your timelapse area is in full view. </p>
-      <div id="map"></div>
-      <span id="coordinates"></span>
-      <button id="confirm_location">Confirm Location</button>
-    </div>
-    <div class="dates" hidden>
-      <h1>Select Dates</h1>
-      <p>Choose start/end dates for your timelapse.</p>
-      <div id="dates">
-        <div>
-          <label>Start date:</label>
-          <input type="date" id="start_date" />
+  <body>
+    <div id="page">
+      <div class="about">
+        <h1>Landsat Timelapser 🛰️</h1>
+        <p>
+          An open-source project to make publically availible
+          <a target="_blank" href="https://landsat.gsfc.nasa.gov/"
+            >Landsat 8 Satillite Imagery</a
+          >
+          readily usable for timelapse generation.
+        </p>
+        <small
+          >Made by
+          <a rel="noopener" target="_blank" href="https://github.com/ryankemmer"
+            >Ryan Kemmer</a
+          >,
+          <a
+            rel="noopener"
+            target="_blank"
+            href="https://github.com/joshstovall"
+            >Josh Stovall</a
+          >,
+          <a rel="noopener" target="_blank" href="https://github.com/dylane1999"
+            >Dylan Edwards</a
+          ></small
+        >
+        <div class="github">
+          <a
+            rel="noopener"
+            target="_blank"
+            class="github-button"
+            href="https://github.com/ryankemmer/Landsat-TimeLapser"
+            data-color-scheme="no-preference: light; light: light; dark: dark;"
+            data-size="large"
+            aria-label="Fork ryankemmer/Landsat-TimeLapser on GitHub"
+            >Fork on GitHub</a
+          >
         </div>
-        <div>
-          <label>End date:</label>
-          <input type="date" id="end_date" />
+        <button id="start">Start</button>
+        <div class="googleearth-engine">
+          <small>Powered by</small>
+          <a
+            rel="noopener"
+            target="_blank"
+            href="https://earthengine.google.com/"
+          >
+            <img
+              src="./assets/googleearth-engine.svg"
+              class="icon"
+              alt="Google Earth Engine Logo"
+            />
+            <img
+              src="https://earthengine.google.com/static/images/GoogleEarthEngine_Grey_108.png"
+              alt="Goole Earth Engine"
+            />
+          </a>
         </div>
       </div>
-      <button id="confirm_dates">Confirm Dates</button>
-    </div>
-    <div class="loading" hidden>
-      Loading...<br />
-      hang tight while our computers do their magic
-    </div>
-    <div class="timelapse" hidden>
-      <h1>Timelapse</h1>
-      <p>Toggle the timelapse using the buttons below.</p>
+      <div class="map" hidden>
+        <h2>Select the location of your timelapse</h2>
+        <p>Scroll in/out until your timelapse area is in full view.</p>
+        <div id="map"></div>
+        <span id="coordinates"></span>
+        <button id="confirm_location">Confirm Location</button>
+      </div>
+      <div class="dates" hidden>
+        <h1>Select Dates</h1>
+        <p>Choose start/end dates for your timelapse.</p>
+        <div id="dates">
+          <div>
+            <label>Start date:</label>
+            <input type="date" id="start_date" />
+          </div>
+          <div>
+            <label>End date:</label>
+            <input type="date" id="end_date" />
+          </div>
+        </div>
+        <p id="error" style="color: orangered" hidden>
+          ERROR: Please enter an appropriate date range!
+        </p>
+        <button id="confirm_dates">Confirm Dates</button>
+      </div>
+      <div class="loading" hidden>
+        Loading...<br />
+        hang tight while our computers do their magic
+      </div>
+      <div class="timelapse" hidden>
+        <h1>Timelapse</h1>
+        <p>Toggle the timelapse using the buttons below.</p>
         <div id="animation_img"></div>
-      <div>
-        <p>Scroll to observe specific images. Click the image to continue the animation.</p>
-        <input type="range" min="1" max="100" value="50" id="growthRange" />
+        <div>
+          <p>
+            Scroll to observe specific images. Click the image to continue the
+            animation.
+          </p>
+          <input type="range" min="1" max="100" value="50" id="growthRange" />
+        </div>
+        <button id="save_btn">Save GIF <i class="fas fa-save"></i></button>
       </div>
-      <button id="save_btn">Save GIF <i class="fas fa-save"></i></button>
     </div>
-  </div>
-  <script src="./scripts/map.js"></script>
-  <script src="./scripts/animation.js"></script>
-  <script src="https://buttons.github.io/buttons.js" async defer></script>
-</body>
-
+    <script src="./scripts/map.js"></script>
+    <script src="./scripts/animation.js"></script>
+    <script src="https://buttons.github.io/buttons.js" async defer></script>
+  </body>
 </html>

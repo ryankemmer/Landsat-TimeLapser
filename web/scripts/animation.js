@@ -135,7 +135,20 @@ function setupDateInputs() {
 
 }
 
+function checkCorrectDates(start, end) {
+  
+  var splitStart = start.split('-')
+  var splitEnd = end.split('-')
+
+  var startDate = Date.parse(splitStart[0], splitStart[1] - 1, splitStart[2]);
+  var endDate = Date.parse(splitEnd[0], splitEnd[1] - 1, splitEnd[2]);
+
+  return startDate < endDate;
+
+}
+
 function newVideo() {
+
   $(".timelapse").hide()
   $(".loading").show()
 
@@ -175,9 +188,14 @@ window.onload = function () {
     $(".dates").show()
   };
   document.getElementById("confirm_dates").onclick = function () {
-    newVideo()
-    $(".dates").hide()
-    $("#dates").insertBefore('.jsgif')
+    var compare = checkCorrectDates($("#start_date").val(), $("#end_date").val())
+    if (compare){
+      newVideo()
+      $(".dates").hide()
+      $("#dates").insertBefore('.jsgif')
+    } else {
+      $('#error').attr('hidden', false);
+    }
   };
 
 };
