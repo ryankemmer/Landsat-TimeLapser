@@ -49,6 +49,8 @@ This is an open-source project is currently not being maintained on a rolling ba
 
 All changes and suggestions are welcome! :) 
 
+For comments or suggestions, please send an email to Ryan Kemmer, ryankemmer77@gmail.com.
+
 
 #
 
