@@ -28,9 +28,9 @@ The project is currently availible for public use at https://landsat-timelapser.
 
 
 
-
 # Setup
 
+This code is availible to use for other open-source projects. To run this application locally, clone this repository and run the following commands. 
 
 ```
 cd web
