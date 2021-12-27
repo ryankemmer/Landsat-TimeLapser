@@ -43,6 +43,12 @@ go to `http://localhost:8000`
 
 
 
+# Contributing
+
+This is an open-source project is currently not being maintained on a rolling basis. If you encounter a problem using the application or would like to make a change, please send us a pull request.
+
+All changes and suggestions are welcome! :) 
+
 
 #
 
