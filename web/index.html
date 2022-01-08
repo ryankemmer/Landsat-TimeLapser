@@ -26,11 +26,11 @@
       <div class="about">
         <h1>Landsat Timelapser 🛰️</h1>
         <p>
-          An open-source project to make publically availible
+          An open-source project to generate timelapses with publically
+          availible
           <a target="_blank" href="https://landsat.gsfc.nasa.gov/"
             >Landsat 8 Satillite Imagery</a
-          >
-          readily usable for timelapse generation.
+          >.
         </p>
         <small
           >Made by
@@ -88,6 +88,26 @@
       <div class="map" hidden>
         <h2>Select the location of your timelapse</h2>
         <p>Scroll in/out until your timelapse area is in full view.</p>
+        <p id="error_latlong" style="color: orangered" hidden>
+          ERROR: Please enter a latitude range between -85 and 85 and a
+          longitude range between -180 and 180.
+        </p>
+        <input
+          type="email"
+          class="form-control"
+          id="lat_input"
+          placeholder="Enter Latitude"
+          style="color: black"
+        />
+        <input
+          type="email"
+          class="form-control"
+          id="long_input"
+          placeholder="Enter Longitude"
+          style="color: black"
+        />
+        <button id="update_pos" class="btn btn-primary">Refresh</button>
+
         <div id="map"></div>
         <span id="coordinates"></span>
         <button id="confirm_location">Confirm Location</button>
@@ -112,7 +132,7 @@
       </div>
       <div class="loading" hidden>
         Loading...<br />
-        hang tight while our computers do their magic
+        Hang tight. It may take up to 30 seconds to fetch your timelapse. :)
       </div>
       <div class="timelapse" hidden>
         <h1>Timelapse</h1>

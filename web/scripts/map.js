@@ -11,7 +11,7 @@ function initMap() {
     center: { lat: lat, lng: lon },
     zoom: 15,
     minZoom: 10,
-    maxZoom: 50,
+    maxZoom: 15,
     mapTypeId: "satellite",
     disableDoubleClickZoom: true,
     scaleControl: true,
@@ -21,6 +21,42 @@ function initMap() {
     rotateControl: false,
     mapTypeControl: false
   });
+
+  //event listener for manual coordinates
+  updateButton = document.getElementById("update_pos")
+
+  updateButton.addEventListener("click", () => {
+
+    $('#error_latlong').attr('hidden', true);
+    var newlat = document.getElementById("lat_input").value
+    var newlong = document.getElementById("long_input").value
+
+    var newlat_float = parseFloat(newlat)
+    var newlong_float = parseFloat(newlong)
+
+    if (newlat_float < -85 || newlat_float > 85){
+
+      $('#error_latlong').attr('hidden', false);
+
+    }
+
+    else if (newlong_float < -180 || newlong_float > 180){
+
+      $('#error_latlong').attr('hidden', false);
+      
+    }
+
+    else {
+
+      //update map
+      map.setCenter(new google.maps.LatLng(newlat_float,newlong_float));
+
+    }
+
+
+  });
+
+
 
   //Event listener for gmaps
   google.maps.event.addListener(map, "bounds_changed", function () {
