@@ -1,10 +1,6 @@
 var rub;
 var playing = false;
 
-//get satillite image
-const ee_token = "AIzaSyDpbgp0DBCSEmr5yLxRxdOZZPncWHHKFMA";
-const EE_MAP_PATH = "https://earthengine.googleapis.com/v1alpha";
-
 function pad(num, size) {
   num = num.toString();
   while (num.length < size) num = "0" + num;
